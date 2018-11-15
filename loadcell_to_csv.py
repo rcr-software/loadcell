@@ -107,9 +107,6 @@ if __name__ == '__main__':
     ch.setOnVoltageRatioChangeHandler(None)
     ch.close()
 
-    # extra wait on user because windows is garbage
-    input('press enter to finish')
-    
     # save final csv
     # must be after tear down, otherwise might different lengths
     save_to_csv('final')
