@@ -80,6 +80,7 @@ def connect_to_device():
 def save_to_csv(name):
     if not os.path.exists('csv/'):
         os.mkdir('csv')
+
     data = {'weigths (lbs)': weights, 'voltages': voltages}
     df = pandas.DataFrame(data, times)
     timestamp = int(time.time())
@@ -89,6 +90,8 @@ def save_to_csv(name):
 
 
 if __name__ == '__main__':
+    print('saving to: ', os.getcwd())
+
     # load callibration data
     load_callibration('callibrate.json')
 
@@ -99,9 +102,6 @@ if __name__ == '__main__':
     # wait for user to end it
     input("press enter when finished")
     print("have a nice day :)")
-    
-    # save final csv
-    save_to_csv('final')
 
     # tear down ch stuff
     ch.setOnVoltageRatioChangeHandler(None)
@@ -109,4 +109,8 @@ if __name__ == '__main__':
 
     # extra wait on user because windows is garbage
     input('press enter to finish')
+    
+    # save final csv
+    # must be after tear down, otherwise might different lengths
+    save_to_csv('final')
 
