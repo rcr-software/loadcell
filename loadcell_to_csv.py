@@ -104,8 +104,8 @@ if __name__ == '__main__':
     print("have a nice day :)")
 
     # tear down ch stuff
-    ch.setOnVoltageRatioChangeHandler(None)
     ch.close()
+    ch.setOnVoltageRatioChangeHandler(None)
 
     # save final csv
     # must be after tear down, otherwise might different lengths
