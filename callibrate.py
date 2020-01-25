@@ -23,16 +23,23 @@ def connect_to_device():
     ch.setDataInterval(8)
     return ch
 
+def read_100_average():
+    summ = 0
+    for i in range(100):
+        summ += ch.getVoltageRatio()
+        time.sleep(0.008) # sleep 8 ms
+    return summ / 100
+
 
 ch = connect_to_device()
 
 print("voltage now: ", ch.getVoltageRatio())
 
 input("press enter when you have ZERO weight on it")
-zero = ch.getVoltageRatio()
+zero = read_100_average()
 
 pounds = float(input("Put the thing on the thing, and enter its weight here: \n WEIGHT(lbs) : "))
-bar = ch.getVoltageRatio()
+bar = read_100_average()
 
 print("saving to callibrate.json")
 

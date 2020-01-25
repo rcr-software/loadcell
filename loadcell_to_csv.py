@@ -16,10 +16,8 @@ start = time.time()
 
 # calibration globals
 # default values
-zero = 1.4574611610000002e-05
-bar = 2.318822778000002e-05 - zero
-pounds = 9.77
-lbs_per_volt = pounds / bar
+zero = None
+lbs_per_volt = None
 
 # TODO
 # exit cleanly on ctr-c or whatever
@@ -110,4 +108,6 @@ if __name__ == '__main__':
     # save final csv
     # must be after tear down, otherwise might different lengths
     save_to_csv('final')
+    print('saved final csv')
+
 
