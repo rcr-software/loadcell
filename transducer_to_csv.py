@@ -92,7 +92,7 @@ def main():
 
     # TODO should we callibrate??
     # yes.
-    load_callibration('callibrate-pressure.json')
+    load_callibration('callibrate_pressure.json')
 
     # create ch stuff
     ch = connect_to_device()

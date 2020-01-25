@@ -35,6 +35,6 @@ psi = float(input("Put the air on the thing, and enter its psi here: \n PRESSURE
 bar = ch.getVoltageRatio()
 print("voltage now: ", ch.getVoltageRatio())
 
-print("saving to callibrate-pressure.json")
+print("saving to callibrate_pressure.json")
 
-json.dump({'zero': zero, 'bar': bar, 'psi': psi}, open('callibrate-pressure.json', 'w'))
+json.dump({'zero': zero, 'bar': bar, 'psi': psi}, open('callibrate_pressure.json', 'w'))
