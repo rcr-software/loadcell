@@ -16,8 +16,10 @@ start = time.time()
 
 # calibration globals
 # default values
-zero = None
-lbs_per_volt = None
+zero = 1.4574611610000002e-05
+bar = 2.318822778000002e-05 - zero
+pounds = 9.77
+lbs_per_volt = pounds / bar
 
 # TODO
 # exit cleanly on ctr-c or whatever
@@ -32,7 +34,7 @@ def load_callibration(filename):
 
     c = json.load(open('callibrate.json'))
     zero = c['zero']
-    lbs_per_volt = c['pounds'] / c['bar']
+    lbs_per_volt = c['pounds'] / (c['bar'] - zero)
 
 
 def voltage_to_pounds(voltage):
@@ -62,7 +64,7 @@ def connect_to_device():
     ch = VoltageRatioInput.VoltageRatioInput()
     ch.close()
     ch.setDeviceSerialNumber(533042)
-    ch.setChannel(0)
+    ch.setChannel(2)
 
     ch.open() # not sure if needed
     ch.openWaitForAttachment(800)
@@ -87,7 +89,7 @@ def save_to_csv(name):
     
 
 
-if __name__ == '__main__':
+def main():
     print('saving to: ', os.getcwd())
 
     # load callibration data
@@ -97,17 +99,24 @@ if __name__ == '__main__':
     ch = connect_to_device()
     ch.setOnVoltageRatioChangeHandler(change_handler)
 
+
+
+    return ch
+
+
+if __name__ == '__main__':
+    ch = main()
+
     # wait for user to end it
     input("press enter when finished")
     print("have a nice day :)")
 
-    # tear down ch stuff
+    # cleanup
     ch.close()
     ch.setOnVoltageRatioChangeHandler(None)
 
     # save final csv
     # must be after tear down, otherwise might different lengths
     save_to_csv('final')
-    print('saved final csv')
-
+    
 
